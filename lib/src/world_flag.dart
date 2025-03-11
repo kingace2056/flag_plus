@@ -6,7 +6,7 @@ class WorldFlag extends StatelessWidget {
   /// The country code for the flag to display.
   final String country;
 
-  /// The width of the flag.
+  /// The width of the flag. ho
   final double? width;
 
   /// The height of the flag.
@@ -36,7 +36,7 @@ class WorldFlag extends StatelessWidget {
   /// The [width] and [height] parameters specify the size of the flag.
   /// If [width] is specified but [height] is null, the aspect ratio will be maintained.
   const WorldFlag({
-    Key? key,
+    super.key,
     required this.country,
     this.width,
     this.height,
@@ -46,7 +46,7 @@ class WorldFlag extends StatelessWidget {
     this.backgroundColor,
     this.loadingBuilder,
     this.errorBuilder,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +63,8 @@ class WorldFlag extends StatelessWidget {
         color: backgroundColor,
         child: SvgPicture.asset(
           'assets/flags/$country.svg',
+          package: 'world_flags',
+
           fit: _convertFit(fit),
           placeholderBuilder: loadingBuilder,
           width: width,
