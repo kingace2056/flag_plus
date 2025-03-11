@@ -63,7 +63,7 @@ class WorldFlag extends StatelessWidget {
         color: backgroundColor,
         child: SvgPicture.asset(
           'assets/flags/$country.svg',
-          package: 'world_flags',
+          package: 'flag_plus',
 
           fit: _convertFit(fit),
           placeholderBuilder: loadingBuilder,
