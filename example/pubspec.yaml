@@ -1,5 +1,5 @@
-name: world_flags_example
-description: Example app for the world_flags package.
+name: world_flag_example
+description: Example app for the world_flag package.
 publish_to: none
 version: 0.0.1+1
 
@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  world_flags:
+  world_flag:
     path: ../
 
 dev_dependencies:

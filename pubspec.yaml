@@ -1,7 +1,7 @@
 name: world_flag
 description: A Flutter package for displaying world flags with customizable shapes and sizes.
 version: 0.0.1
-homepage: https://github.com/kingace2056/world_flags
+homepage: https://github.com/kingace2056/world_flag
 
 environment:
   sdk: ^3.7.0
@@ -24,6 +24,4 @@ dev_dependencies:
 flutter:
   # To add assets to your package, add an assets section, like this:
   assets:
-    - assets/
-    - assets/flags
     - assets/flags/

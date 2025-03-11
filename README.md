@@ -11,13 +11,13 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
-# World Flags
+# World Flag
 
 A Flutter package that provides an easy way to display world flags with customizable shapes, sizes, and fitting options. The package uses SVG format for high-quality, scalable flag rendering.
 
-[![pub package](https://img.shields.io/pub/v/world_flags.svg)](https://pub.dev/packages/world_flags)
-[![likes](https://img.shields.io/pub/likes/world_flags)](https://pub.dev/packages/world_flags/score)
-[![popularity](https://img.shields.io/pub/popularity/world_flags)](https://pub.dev/packages/world_flags/score)
+[![pub package](https://img.shields.io/pub/v/world_flag.svg)](https://pub.dev/packages/world_flag)
+[![likes](https://img.shields.io/pub/likes/world_flag)](https://pub.dev/packages/world_flag/score)
+[![popularity](https://img.shields.io/pub/popularity/world_flag)](https://pub.dev/packages/world_flag/score)
 
 ## Features
 
@@ -36,7 +36,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  world_flags: ^0.0.1
+  world_flag: ^0.0.1
 ```
 
 ## Usage
@@ -46,7 +46,7 @@ dependencies:
 Import the package:
 
 ```dart
-import 'package:world_flags/world_flags.dart';
+import 'package:world_flag/world_flag.dart';
 ```
 
 Display a simple flag:

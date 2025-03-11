@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:world_flags/world_flags.dart';
+import 'package:world_flag/world_flag.dart';
 
 void main() {
   runApp(const MyApp());
