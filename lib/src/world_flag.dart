@@ -6,7 +6,7 @@ class WorldFlag extends StatelessWidget {
   /// The country code for the flag to display.
   final String country;
 
-  /// The width of the flag. ho
+  /// The width of the flag.
   final double? width;
 
   /// The height of the flag.
@@ -28,6 +28,12 @@ class WorldFlag extends StatelessWidget {
   final Widget Function(BuildContext)? loadingBuilder;
 
   /// Builder function for error state.
+  ///
+  /// If not provided, a default error widget will be shown with an error icon
+  /// and the error message. The error can be either:
+  /// - AssetNotFound: When the flag SVG file cannot be found
+  /// - InvalidCountryCode: When the provided country code is invalid
+  /// - Other SVG parsing or rendering errors
   final Widget Function(BuildContext, dynamic)? errorBuilder;
 
   /// Creates a widget that displays a country flag.
@@ -62,15 +68,62 @@ class WorldFlag extends StatelessWidget {
         height: height,
         color: backgroundColor,
         child: SvgPicture.asset(
-          'assets/flags/$country.svg',
+          'assets/flags/${country.toLowerCase()}.svg',
           package: 'flag_plus',
           semanticsLabel: country,
-
           fit: _convertFit(fit),
           placeholderBuilder: loadingBuilder,
           width: width,
           height: height,
+          errorBuilder: (context, error, stackTrace) {
+            if (errorBuilder != null) {
+              return errorBuilder!(context, error);
+            }
+            return _buildDefaultError(context, error);
+          },
         ),
+      ),
+    );
+  }
+
+  /// Builds the default error widget when no custom error builder is provided
+  Widget _buildDefaultError(BuildContext context, dynamic error) {
+    final theme = Theme.of(context);
+    final isAssetError = error.toString().contains('Unable to load asset');
+
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.errorContainer.withOpacity(0.1),
+        border: Border.all(
+          color: theme.colorScheme.error.withOpacity(0.5),
+          width: 1,
+        ),
+        borderRadius:
+            shape == WorldFlagShape.circular
+                ? BorderRadius.circular(width ?? height ?? 100)
+                : shape == WorldFlagShape.rounded
+                ? BorderRadius.circular(borderRadius)
+                : BorderRadius.zero,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            isAssetError ? Icons.broken_image : Icons.error_outline,
+            color: theme.colorScheme.error,
+            size: 24,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            isAssetError ? 'Flag not found' : 'Error loading flag',
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.error,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
