@@ -1,6 +1,6 @@
 name: flag_plus
 description: A Flutter package for displaying world flags with customizable shapes and sizes.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/kingace2056/flag_plus
 
 environment:

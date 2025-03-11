@@ -54,6 +54,18 @@ class FlagPlus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Validate and convert country input
+    if (!isValidCountry(country)) {
+      if (errorBuilder != null) {
+        return errorBuilder!(context, 'Invalid country: $country');
+      }
+      return _buildDefaultError(
+        context,
+        'Invalid country: $country',
+        isInvalidCountry: true,
+      );
+    }
+
     final countryCode = getCountryCode(country);
 
     return ClipRRect(
@@ -68,13 +80,75 @@ class FlagPlus extends StatelessWidget {
         height: height,
         color: backgroundColor,
         child: SvgPicture.asset(
-          'assets/flags/$countryCode.svg',
+          'assets/flags/${countryCode.toLowerCase()}.svg',
           package: 'flag_plus',
           fit: _convertFit(fit),
           placeholderBuilder: loadingBuilder,
           width: width,
           height: height,
+          errorBuilder: (context, error, stackTrace) {
+            if (errorBuilder != null) {
+              return errorBuilder!(context, error);
+            }
+            return _buildDefaultError(context, error.toString());
+          },
         ),
+      ),
+    );
+  }
+
+  /// Builds the default error widget when no custom error builder is provided
+  Widget _buildDefaultError(
+    BuildContext context,
+    String error, {
+    bool isInvalidCountry = false,
+  }) {
+    final theme = Theme.of(context);
+    final isAssetError = error.contains('Unable to load asset');
+
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.errorContainer.withValues(alpha: 0.1),
+        border: Border.all(
+          color: theme.colorScheme.error.withValues(alpha: 0.5),
+          width: 1,
+        ),
+        borderRadius:
+            shape == FlagShape.circular
+                ? BorderRadius.circular(width ?? height ?? 100)
+                : shape == FlagShape.rounded
+                ? BorderRadius.circular(borderRadius)
+                : BorderRadius.zero,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            isInvalidCountry
+                ? Icons.flag_outlined
+                : isAssetError
+                ? Icons.broken_image
+                : Icons.error_outline,
+            color: theme.colorScheme.error,
+            size: 24,
+          ),
+          const SizedBox(height: 4),
+          Flexible(
+            child: Text(
+              isInvalidCountry
+                  ? 'Invalid country'
+                  : isAssetError
+                  ? 'Flag not found'
+                  : 'Error loading flag',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.error,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
       ),
     );
   }

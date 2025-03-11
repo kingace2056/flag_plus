@@ -11,229 +11,268 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
-# Flag Plus
+<div align="center">
 
-A Flutter package that provides an easy way to display world flags with customizable shapes, sizes, and fitting options. The package uses SVG format for high-quality, scalable flag rendering.
+# 🎌 Flag Plus
+
+A powerful Flutter package for displaying world flags with customizable shapes, sizes, and fitting options.
 
 [![pub package](https://img.shields.io/pub/v/flag_plus.svg)](https://pub.dev/packages/flag_plus)
 [![likes](https://img.shields.io/pub/likes/flag_plus)](https://pub.dev/packages/flag_plus/score)
 [![popularity](https://img.shields.io/pub/popularity/flag_plus)](https://pub.dev/packages/flag_plus/score)
+[![GitHub issues](https://img.shields.io/github/issues/kingace2056/flag_plus)](https://github.com/kingace2056/flag_plus/issues)
+[![GitHub license](https://img.shields.io/github/license/kingace2056/flag_plus)](https://github.com/kingace2056/flag_plus/blob/main/LICENSE)
 
-## Features
+</div>
 
-- 🎨 **Multiple Flag Shapes**: Rectangular, rounded corners, or circular
-- 📏 **Flexible Sizing**: Customize width and height independently
-- 🖼️ **Smart Fitting Options**: Various fitting modes like contain, cover, fill
-- 🎯 **Aspect Ratio Handling**: Maintains correct flag proportions
-- 🔄 **Loading States**: Customizable loading and error states
-- 🎨 **Background Support**: Optional background color
-- 💾 **Efficient Loading**: Asset caching for better performance
-- 🌓 **Theme Support**: Adapts to light and dark themes
+## ✨ Features
 
-## Installation
+- 🎨 **Multiple Flag Shapes**
+  - Rectangular (default)
+  - Rounded corners with customizable radius
+  - Perfect circular shape
+- 📏 **Flexible Sizing**
+  - Independent width and height control
+  - Aspect ratio preservation options
+- 🖼️ **Smart Fitting Options**
+  - Contain: Fit while maintaining aspect ratio
+  - Cover: Fill while maintaining aspect ratio
+  - Fill: Stretch to fill space
+  - And more!
+- 🌍 **Country Input Flexibility**
+  - Support for ISO country codes (`us`, `gb`, etc.)
+  - Full country names (`United States`, `United Kingdom`, etc.)
+  - Case-insensitive input
+- 🎯 **Error Handling**
+  - Customizable error states
+  - Informative error messages
+  - Fallback error widgets
+- 🔄 **Loading States**
+  - Custom loading indicators
+  - Placeholder support
+- 🎨 **Visual Customization**
+  - Background color support
+  - Border radius control
+  - Shape variations
+- ⚡ **Performance**
+  - SVG format for crisp rendering
+  - Asset caching
+  - Efficient loading
+
+## 📦 Installation
 
 Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flag_plus: ^0.0.1
+  flag_plus: ^latest_version
 ```
 
-## Usage
+Or install via command line:
 
-### Basic Usage
+```bash
+flutter pub add flag_plus
+```
 
-Import the package:
+## 🚀 Quick Start
+
+1. Import the package:
 
 ```dart
 import 'package:flag_plus/flag_plus.dart';
 ```
 
-Display a simple flag:
+2. Add a simple flag:
 
 ```dart
-WorldFlag(
-  country: 'us',  // Country code
-  width: 100,     // Width in pixels
-  height: 60,     // Height in pixels
-)
-```
-
-### Flag Shapes
-
-The package supports three flag shapes through the `WorldFlagShape` enum:
-
-```dart
-// Rectangular flag (default)
-WorldFlag(
-  country: 'gb',
+FlagPlus(
+  country: 'us',  // or 'United States'
   width: 100,
   height: 60,
-  shape: WorldFlagShape.rectangular,
 )
+```
 
-// Rounded corners
-WorldFlag(
-  country: 'fr',
+## 📖 Usage Examples
+
+### 🎨 Flag Shapes
+
+```dart
+// Rectangular (Default)
+FlagPlus(
+  country: 'France',
   width: 100,
   height: 60,
-  shape: WorldFlagShape.rounded,
-  borderRadius: 12.0,  // Custom border radius
 )
 
-// Circular flag
-WorldFlag(
-  country: 'jp',
+// Rounded Corners
+FlagPlus(
+  country: 'Germany',
   width: 100,
-  height: 100,  // Equal width and height for perfect circle
-  shape: WorldFlagShape.circular,
+  height: 60,
+  shape: FlagShape.rounded,
+  borderRadius: 12,
+)
+
+// Circular
+FlagPlus(
+  country: 'Japan',
+  width: 100,
+  height: 100,
+  shape: FlagShape.circular,
 )
 ```
 
-### Fitting Options
-
-Control how the flag fits within its bounds using `WorldFlagFit`:
+### 🖼️ Fitting Options
 
 ```dart
-// Fill the entire space (might stretch)
-WorldFlag(
-  country: 'de',
+// Contain (Default)
+FlagPlus(
+  country: 'Italy',
   width: 150,
   height: 100,
-  fit: WorldFlagFit.fill,
+  fit: FlagFit.contain,
+  backgroundColor: Colors.grey[200],
 )
 
-// Maintain aspect ratio, fit within bounds
-WorldFlag(
-  country: 'it',
+// Cover
+FlagPlus(
+  country: 'Spain',
   width: 150,
   height: 100,
-  fit: WorldFlagFit.contain,
-  backgroundColor: Colors.grey[200],  // Background color visible
+  fit: FlagFit.cover,
 )
 
-// Maintain aspect ratio, cover entire space
-WorldFlag(
-  country: 'es',
+// Fill
+FlagPlus(
+  country: 'Brazil',
   width: 150,
   height: 100,
-  fit: WorldFlagFit.cover,
-)
-
-// Fit to width
-WorldFlag(
-  country: 'br',
-  width: 150,
-  height: 100,
-  fit: WorldFlagFit.fitWidth,
-)
-
-// Fit to height
-WorldFlag(
-  country: 'ca',
-  width: 150,
-  height: 100,
-  fit: WorldFlagFit.fitHeight,
-)
-
-// No scaling
-WorldFlag(
-  country: 'au',
-  width: 150,
-  height: 100,
-  fit: WorldFlagFit.none,
+  fit: FlagFit.fill,
 )
 ```
 
-### Loading and Error States
-
-Customize loading and error states:
+### 🔄 Loading & Error States
 
 ```dart
-WorldFlag(
-  country: 'in',
+FlagPlus(
+  country: 'Canada',
   width: 150,
   height: 100,
-  loadingBuilder: (context) => Center(
+  // Custom loading widget
+  loadingBuilder: (context) => const Center(
     child: CircularProgressIndicator(),
   ),
-  errorBuilder: (context, error) => Center(
-    child: Icon(Icons.broken_image),
+  // Custom error widget
+  errorBuilder: (context, error) => Container(
+    color: Colors.red[100],
+    child: const Center(
+      child: Icon(Icons.error_outline),
+    ),
   ),
 )
 ```
 
-## API Reference
+### 🌍 Country Input Examples
 
-### WorldFlag
+```dart
+// Using country codes
+FlagPlus(country: 'us'),  // United States
+FlagPlus(country: 'gb'),  // United Kingdom
+FlagPlus(country: 'jp'),  // Japan
 
-Main widget for displaying flags.
+// Using country names (case-insensitive)
+FlagPlus(country: 'United States'),
+FlagPlus(country: 'united kingdom'),
+FlagPlus(country: 'JAPAN'),
+```
 
-#### Properties
+## 📚 API Reference
 
-| Property          | Type                                      | Description                                                 |
-| ----------------- | ----------------------------------------- | ----------------------------------------------------------- |
-| `country`         | `String`                                  | Required. The country code for the flag                     |
-| `width`           | `double?`                                 | Optional. The width of the flag                             |
-| `height`          | `double?`                                 | Optional. The height of the flag                            |
-| `shape`           | `WorldFlagShape`                          | The shape of the flag. Default is `rectangular`             |
-| `fit`             | `WorldFlagFit`                            | How the flag should fit in its bounds. Default is `contain` |
-| `borderRadius`    | `double`                                  | Border radius for rounded shape. Default is 8.0             |
-| `backgroundColor` | `Color?`                                  | Optional background color                                   |
-| `loadingBuilder`  | `Widget Function(BuildContext)?`          | Optional custom loading widget                              |
-| `errorBuilder`    | `Widget Function(BuildContext, dynamic)?` | Optional custom error widget                                |
+### FlagPlus Widget
 
-### WorldFlagShape
+| Property          | Type                                      | Default       | Description                     |
+| ----------------- | ----------------------------------------- | ------------- | ------------------------------- |
+| `country`         | `String`                                  | Required      | Country code or name            |
+| `width`           | `double?`                                 | null          | Flag width                      |
+| `height`          | `double?`                                 | null          | Flag height                     |
+| `shape`           | `FlagShape`                               | `rectangular` | Flag shape                      |
+| `fit`             | `FlagFit`                                 | `contain`     | How flag fits bounds            |
+| `borderRadius`    | `double`                                  | 8.0           | Corner radius for rounded shape |
+| `backgroundColor` | `Color?`                                  | null          | Background color                |
+| `loadingBuilder`  | `Widget Function(BuildContext)?`          | null          | Custom loading widget           |
+| `errorBuilder`    | `Widget Function(BuildContext, dynamic)?` | null          | Custom error widget             |
 
-Enum defining possible flag shapes:
+### FlagShape
 
-- `rectangular`: Standard rectangular flag
-- `rounded`: Flag with rounded corners
-- `circular`: Circular flag shape
+| Value         | Description               |
+| ------------- | ------------------------- |
+| `rectangular` | Standard rectangular flag |
+| `rounded`     | Flag with rounded corners |
+| `circular`    | Perfect circular shape    |
 
-### WorldFlagFit
+### FlagFit
 
-Enum defining how the flag fits within its bounds:
+| Value       | Description                |
+| ----------- | -------------------------- |
+| `fill`      | Stretch to fill space      |
+| `contain`   | Scale to fit within bounds |
+| `cover`     | Scale to cover bounds      |
+| `fitWidth`  | Scale to match width       |
+| `fitHeight` | Scale to match height      |
+| `none`      | No scaling                 |
 
-- `fill`: Stretch to fill the space
-- `contain`: Scale to fit while maintaining aspect ratio
-- `cover`: Scale to cover while maintaining aspect ratio
-- `fitWidth`: Scale to match width
-- `fitHeight`: Scale to match height
-- `none`: No scaling applied
+## 🤝 Contributing
 
-## Contributing
+Contributions are welcome! Here's how you can help:
 
-Contributions are welcome! If you find a bug or want to add a feature:
+1. 🐛 **Report Bugs**
 
-1. Create an issue to discuss the change
-2. Fork the repository
-3. Create a new branch for your feature
-4. Submit a pull request
+   - Open an issue with a clear title and description
+   - Add relevant code samples and error messages
+   - Include steps to reproduce
 
-Please ensure your code follows the project's style and includes appropriate tests.
+2. 💡 **Suggest Features**
 
-## License
+   - Open an issue to suggest new features
+   - Explain the use case and benefits
+   - Provide examples if possible
+
+3. 🔧 **Submit Pull Requests**
+   - Fork the repository
+   - Create a new branch: `git checkout -b feature-name`
+   - Make your changes
+   - Submit a PR with a clear description
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Credits
+## 🙏 Credits
 
-Flag SVG files are sourced from [country-flags](https://github.com/hampusborgos/country-flags) repository by Hampus Borgos.
+- Flag SVG files sourced from [country-flags](https://github.com/hampusborgos/country-flags) repository by Hampus Borgos
+- Built with [Flutter](https://flutter.dev) and [flutter_svg](https://pub.dev/packages/flutter_svg)
 
-## Author
+## 👨‍💻 Author
 
-**Sarthak Parajuli** ([@kingace2056](https://github.com/kingace2056))
+<div align="center">
+  <img src="https://github.com/kingace2056.png" width="100" style="border-radius: 50%;">
+  <br>
+  <b>Sarthak Parajuli</b>
+  <br>
+  <a href="https://github.com/kingace2056">@kingace2056</a>
+  <br>
+  Full-time Flutter Developer
+  <br>
+  Computer Engineering Student at IOE, Purwanchal Campus(ERC), Dharan, Nepal 🇳🇵
+</div>
 
-- Full-time Flutter Developer
-- Computer Engineering Student at IOE, Purwanchal Campus(ERC), Dharan, Nepal 🇳🇵
-
-## Version History
+## 📝 Changelog
 
 ### 0.0.1
 
-- Initial release
-- Basic flag display functionality
-- Multiple shape options
-- Fitting options
-- Loading and error states
+- 🎉 Initial release
+- ✨ Basic flag display functionality
+- 🎨 Multiple shape options
+- 🖼️ Fitting options
+- 🔄 Loading and error states
+- 📚 Comprehensive documentation

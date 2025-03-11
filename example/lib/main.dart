@@ -116,6 +116,19 @@ class MyHomePage extends StatelessWidget {
                 ),
               ],
             ),
+            //error handling
+            const Text(
+              'Error Handling:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: const [
+                FlagPlus(country: 'Invalid Country', width: 100, height: 60),
+              ],
+            ),
           ],
         ),
       ),
