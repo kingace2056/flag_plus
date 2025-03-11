@@ -1,4 +1,4 @@
-name: world_flags
+name: world_flag
 description: A Flutter package for displaying world flags with customizable shapes and sizes.
 version: 0.0.1
 homepage: https://github.com/kingace2056/world_flags
