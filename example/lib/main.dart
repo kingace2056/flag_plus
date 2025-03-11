@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'World Flags Demo',
+      title: 'Flag Plus Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
       home: const MyHomePage(),
@@ -25,14 +25,14 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('World Flags Demo')),
+      appBar: AppBar(title: const Text('Flag Plus Demo')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Basic Flags:',
+              'Using Country Codes:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
@@ -40,9 +40,24 @@ class MyHomePage extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: const [
-                WorldFlag(country: 'np', width: 100, height: 60),
-                WorldFlag(country: 'us', width: 100, height: 60),
-                WorldFlag(country: 'gb', width: 100, height: 60),
+                FlagPlus(country: 'np', width: 100, height: 60),
+                FlagPlus(country: 'us', width: 100, height: 60),
+                FlagPlus(country: 'gb', width: 100, height: 60),
+              ],
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Using Country Names:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: const [
+                FlagPlus(country: 'Nepal', width: 100, height: 60),
+                FlagPlus(country: 'United States', width: 100, height: 60),
+                FlagPlus(country: 'United Kingdom', width: 100, height: 60),
               ],
             ),
             const SizedBox(height: 24),
@@ -55,17 +70,17 @@ class MyHomePage extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: const [
-                WorldFlag(
-                  country: 'jp',
+                FlagPlus(
+                  country: 'Japan',
                   width: 100,
                   height: 100,
-                  shape: WorldFlagShape.circular,
+                  shape: FlagShape.circular,
                 ),
-                WorldFlag(
-                  country: 'fr',
+                FlagPlus(
+                  country: 'France',
                   width: 100,
                   height: 60,
-                  shape: WorldFlagShape.rounded,
+                  shape: FlagShape.rounded,
                   borderRadius: 12,
                 ),
               ],
@@ -80,24 +95,24 @@ class MyHomePage extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: const [
-                WorldFlag(
-                  country: 'de',
+                FlagPlus(
+                  country: 'Germany',
                   width: 100,
                   height: 100,
-                  fit: WorldFlagFit.contain,
+                  fit: FlagFit.contain,
                   backgroundColor: Colors.grey,
                 ),
-                WorldFlag(
-                  country: 'it',
+                FlagPlus(
+                  country: 'Italy',
                   width: 100,
                   height: 100,
-                  fit: WorldFlagFit.cover,
+                  fit: FlagFit.cover,
                 ),
-                WorldFlag(
-                  country: 'es',
+                FlagPlus(
+                  country: 'Spain',
                   width: 100,
                   height: 100,
-                  fit: WorldFlagFit.fill,
+                  fit: FlagFit.fill,
                 ),
               ],
             ),

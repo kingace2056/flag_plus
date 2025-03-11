@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'utils/country_codes.dart';
 
 /// A widget that displays a country flag using SVG format.
-class WorldFlag extends StatelessWidget {
-  /// The country code for the flag to display.
+class FlagPlus extends StatelessWidget {
+  /// The country name or code for the flag to display.
+  /// This can be either:
+  /// - A 2-letter ISO country code (e.g., 'us', 'gb', 'fr')
+  /// - A full country name (e.g., 'United States', 'United Kingdom', 'France')
   final String country;
 
-  /// The width of the flag. ho
+  /// The width of the flag.
   final double? width;
 
   /// The height of the flag.
   final double? height;
 
   /// The shape of the flag.
-  final WorldFlagShape shape;
+  final FlagShape shape;
 
   /// How the flag should be fitted in its bounds.
-  final WorldFlagFit fit;
+  final FlagFit fit;
 
   /// Border radius for rounded shape.
   final double borderRadius;
@@ -32,16 +36,16 @@ class WorldFlag extends StatelessWidget {
 
   /// Creates a widget that displays a country flag.
   ///
-  /// The [country] parameter is required and should be a valid country code.
+  /// The [country] parameter is required and can be either a country code or name.
   /// The [width] and [height] parameters specify the size of the flag.
   /// If [width] is specified but [height] is null, the aspect ratio will be maintained.
-  const WorldFlag({
+  const FlagPlus({
     super.key,
     required this.country,
     this.width,
     this.height,
-    this.shape = WorldFlagShape.rectangular,
-    this.fit = WorldFlagFit.contain,
+    this.shape = FlagShape.rectangular,
+    this.fit = FlagFit.contain,
     this.borderRadius = 8.0,
     this.backgroundColor,
     this.loadingBuilder,
@@ -50,11 +54,13 @@ class WorldFlag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final countryCode = getCountryCode(country);
+
     return ClipRRect(
       borderRadius:
-          shape == WorldFlagShape.circular
+          shape == FlagShape.circular
               ? BorderRadius.circular(width ?? height ?? 100)
-              : shape == WorldFlagShape.rounded
+              : shape == FlagShape.rounded
               ? BorderRadius.circular(borderRadius)
               : BorderRadius.zero,
       child: Container(
@@ -62,10 +68,8 @@ class WorldFlag extends StatelessWidget {
         height: height,
         color: backgroundColor,
         child: SvgPicture.asset(
-          'assets/flags/$country.svg',
+          'assets/flags/$countryCode.svg',
           package: 'flag_plus',
-          semanticsLabel: country,
-
           fit: _convertFit(fit),
           placeholderBuilder: loadingBuilder,
           width: width,
@@ -75,26 +79,26 @@ class WorldFlag extends StatelessWidget {
     );
   }
 
-  BoxFit _convertFit(WorldFlagFit flagFit) {
+  BoxFit _convertFit(FlagFit flagFit) {
     switch (flagFit) {
-      case WorldFlagFit.fill:
+      case FlagFit.fill:
         return BoxFit.fill;
-      case WorldFlagFit.contain:
+      case FlagFit.contain:
         return BoxFit.contain;
-      case WorldFlagFit.cover:
+      case FlagFit.cover:
         return BoxFit.cover;
-      case WorldFlagFit.fitWidth:
+      case FlagFit.fitWidth:
         return BoxFit.fitWidth;
-      case WorldFlagFit.fitHeight:
+      case FlagFit.fitHeight:
         return BoxFit.fitHeight;
-      case WorldFlagFit.none:
+      case FlagFit.none:
         return BoxFit.none;
     }
   }
 }
 
 /// The shape of the flag widget.
-enum WorldFlagShape {
+enum FlagShape {
   /// Standard rectangular flag
   rectangular,
 
@@ -106,7 +110,7 @@ enum WorldFlagShape {
 }
 
 /// How the flag should be fitted within its bounds.
-enum WorldFlagFit {
+enum FlagFit {
   /// Stretch the flag to fill the entire space
   fill,
 
